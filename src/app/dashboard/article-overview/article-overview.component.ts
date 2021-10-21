@@ -9,17 +9,34 @@ import { DashboardService } from '../dashboard.service';
 })
 export class ArticleOverviewComponent implements OnInit {
 
-  articles: Article[] | undefined;
+  articles!: Article[];
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
+    this.getArticles();
   }
 
   getArticles(): void {
     this.dashboardService
     .getArticles()
     .subscribe(articles => (this.articles = articles));
+    console.log(this.articles)
+  }
+
+  togglePublishState(article: Article): void {
+    article.published = !article.published;
+    this.dashboardService.togglePublishState(article).subscribe(
+      result => {
+      const index: number = this.articles.findIndex(
+        currentArticle => currentArticle.id === result.id
+      );
+      this.articles[index] = result;
+      },
+      error => {
+      article.published = !article.published;
+      console.error(error);
+      });
   }
 
 }
