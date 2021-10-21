@@ -9,10 +9,13 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { AboutComponent } from './about/about.component';
 import { ArticleComponent } from './article/article.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditArticleComponent } from './dashboard/edit-article/edit-article.component';
+import { ArticleOverviewComponent } from './dashboard/article-overview/article-overview.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     NavBarComponent,
     FooterComponent,
@@ -20,6 +23,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AboutComponent,
     ArticleComponent,
     NotFoundComponent,
+    DashboardComponent,
+    ArticleOverviewComponent,
+    EditArticleComponent,
+    
+
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
