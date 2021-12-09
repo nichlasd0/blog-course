@@ -21,7 +21,6 @@ export class ArticleOverviewComponent implements OnInit {
     this.dashboardService
     .getArticles()
     .subscribe(articles => (this.articles = articles));
-    console.log(this.articles)
   }
 
   togglePublishState(article: Article): void {

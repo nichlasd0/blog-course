@@ -3,6 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from '../article';
 import { ArticleService } from '../article.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -19,14 +20,32 @@ export class ArticleComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private sharedService: SharedService,
-    private meta: Meta) { }
+    private meta: Meta,
+    private dashboardService: DashboardService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
     const key = params.key
-    this.articleService.getArticle(key).subscribe(
-      article => {
-        if (article === null)
+
+    if(this.router.url.indexOf("dashboard/preview") === -1) {
+      this.articleService.getArticle(key).subscribe(
+        article => {
+          this.displayArticle(article);
+        }
+      );
+    } else {
+      this.dashboardService.getArticle(key).subscribe(
+        article => {
+          this.displayArticle(article);
+        }
+      );
+    }
+
+  });
+  }
+
+  displayArticle(article: Article): void {
+    if (article === null)
         {
           this.router.navigateByUrl('404');
           return; 
@@ -56,8 +75,5 @@ export class ArticleComponent implements OnInit {
             property: "og:site_name", content: this.sharedService.blogTitle
           },
         ]);
-      }
-    );
-  });
   }
 }

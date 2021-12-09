@@ -5,6 +5,7 @@
     <div class="overview-cell">Date</div>
     <div class="overview-cell">Views</div>
     <div class="overview-cell">Online</div>
+    <div class="overview-cell"></div>
   </div>
   <div class="overview-row" *ngFor="let article of articles">
     <div class="overview-cell" ><img [src]="article.imageUrl" class="overview-image"></div>
@@ -14,6 +15,8 @@
     <div class="overview-cell center">
       <span (click)="togglePublishState(article)" class="dot publish-icon" [ngClass]="{online : article.published, offline: !article.published}"></span>
     </div>
-
+    <div class="overview-cell">
+      <a routerLink="/dashboard/{{article.key}}">Edit</a>
+    </div>
   </div>
 </div>

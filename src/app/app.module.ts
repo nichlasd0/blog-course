@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditArticleComponent } from './dashboard/edit-article/edit-article.component';
 import { ArticleOverviewComponent } from './dashboard/article-overview/article-overview.component';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [			
@@ -26,13 +28,15 @@ import { ArticleOverviewComponent } from './dashboard/article-overview/article-o
     DashboardComponent,
     ArticleOverviewComponent,
     EditArticleComponent,
+    LoginComponent,
     
 
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
