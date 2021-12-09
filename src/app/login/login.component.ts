@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +9,24 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  user: User = new User();
+  errorMessage = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   login() {
-    this.authService.login('Nichlas', '123456').subscribe(
+    this.errorMessage = '';
+
+    this.authService.login(this.user.name, this.user.password).subscribe(
       (result) => {
-        console.log(result);
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('token', result.token);
+        }
+        this.router.navigate(['/dashboard']);
       },
       (error) => {
-        console.log(error);
-        console.log('username or password is wrong');
+        this.errorMessage = 'username or password is wrong';
       }
     );
   }

@@ -9,36 +9,37 @@ import { ArticleListComponent } from './article-list/article-list.component';
 import { AboutComponent } from './about/about.component';
 import { ArticleComponent } from './article/article.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditArticleComponent } from './dashboard/edit-article/edit-article.component';
 import { ArticleOverviewComponent } from './dashboard/article-overview/article-overview.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { Interceptor } from './interceptor';
 
 @NgModule({
-  declarations: [			
+  declarations: [
     AppComponent,
     NavBarComponent,
     FooterComponent,
     ArticleListComponent,
     AboutComponent,
+    LoginComponent,
     ArticleComponent,
     NotFoundComponent,
     DashboardComponent,
     ArticleOverviewComponent,
     EditArticleComponent,
-    LoginComponent,
-    
-
-   ],
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
